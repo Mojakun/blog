@@ -83,7 +83,7 @@ class BlogController extends Controller
         ['blog' => $blog]);
     }
 
-       /**
+    /**
      * ブログを更新する
      * @return view
      */
@@ -108,6 +108,26 @@ class BlogController extends Controller
 
         \Session::flash('err_msg','ブログを登録しました');
         return redirect(route('blogs',));
+    }
+
+    /**
+     * ブログを削除する
+     * @return view
+     */
+    public function exeDelete($id){
+
+        if(empty($id)){
+            \Session::flash('err_msg','データがありません');
+            return redirect(route('blogs'));
+        }
+        $resulet = Blog::destroy($id);
+        if(is_null($resulet)){
+            \Session::flash('err_msg','データがありません');
+            return redirect(route('blogs'));
+        }
+        \Session::flash('err_msg','ブログを削除しました');
+        return redirect(route('blogs'));
+        
     }
 
 }
